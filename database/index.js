@@ -9,18 +9,19 @@ db.once('open', function(callback) {
 });
 
 let repoSchema = mongoose.Schema({
-  user: String,  //username
   name: String,   ///repo name
-  forks: Number,
-  url: String        //svn url???
+  forks: Number
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (/* TODO */) => {
-  // TODO: Your code here
-  // This function should save a repo or repos to
-  // the MongoDB
+// This function should save a repo or repos to
+// the MongoDB
+let save = (repos) => {
+  Repo.insertMany(repos, function(err, docs) {console.log(err)});
 }
 
+
 module.exports.save = save;
+
+//Model.update(query, { name: 'jason bourne' }, options, callback);

@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const github = require('../helpers/github');
 const request = require('request');
+const db = require('../database/index.js')
 let app = express();
 
 
@@ -21,14 +22,13 @@ app.use(express.static(__dirname + '/../client/dist'));
 // save the repo information in the database
 app.post('/repos', function (req, res) {
   let username = req.body.username;
-  console.log(username);
   github.getReposByUsername(username, function(err, response, body) {
     if (err) {
-      console.log(err)
+      console.log('error getting data from github', err)
     }
-    res.send(body);
-    console.log(body)
-  })
+    let data = JSON.parse(body)
+    db.save(data);
+  });
   
 });
 
