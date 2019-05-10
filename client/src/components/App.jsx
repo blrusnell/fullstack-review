@@ -11,6 +11,7 @@ class App extends React.Component {
         repos: []
       }
       
+      this.componentDidMount = this.componentDidMount.bind(this);
       this.search = this.search.bind(this);
     }
   
@@ -24,8 +25,23 @@ class App extends React.Component {
       .fail(error => {
           console.log(error);
       })
-      
     }
+
+    componentDidMount() {
+        $.get('/repos')
+        .done(response => {
+            console.log(response)
+            this.setState({
+                repos: response
+            })
+        })
+        .fail(error => {
+            console.log(error);
+        })
+
+    }
+
+      
   
     render () {
       return (<div>

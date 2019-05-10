@@ -1,12 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
-// let db = mongoose.connection;
-
-// db.on('error', console.error.bind(console, 'connection error'));
-// db.once('open', function(callback) {
-//   console.log('Connection succeeded');
-// });
 
 let repoSchema = mongoose.Schema({
   id: {
@@ -17,7 +11,7 @@ let repoSchema = mongoose.Schema({
     type: String,
     unique: true
   },   ///repo name
-  forks: Number,
+  forks: Number
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
@@ -32,7 +26,16 @@ let save = (err, repos) => {
   });
 }
 
+let findAll = (object, callback) => {
+  Repo.find(object, function(err, data) {
+    if (err) {
+      console.log(err);
+    }
+    callback(null, data);
+  })
+}
+
 
 module.exports.save = save;
+module.exports.findAll = findAll;
 
-//Model.update(query, { name: 'jason bourne' }, options, callback);
