@@ -17,14 +17,14 @@ class App extends React.Component {
     search (term) {
       console.log(`${term} was searched`);
 
-      $.post('/repos', {username: term} ) 
-    //   })
-    //   .done(function(response) {
-    //     console.log(response)
-    //   })
-    //   .fail(function(error) {
-    //     console.log(error)
-    //   })
+      $.post('/repos', {username: term})
+      .done(response => {
+          console.log(response);
+      })
+      .fail(error => {
+          console.log(error);
+      })
+      
     }
   
     render () {
