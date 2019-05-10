@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const github = require('../helpers/github');
 const request = require('request');
-const db = require('../database/index.js')
+const repos = require('../database/index.js')
 let app = express();
 
 
@@ -27,7 +27,8 @@ app.post('/repos', function (req, res) {
       console.log('error getting data from github', err)
     }
     let data = JSON.parse(body)
-    db.save(data);
+    repos.save(null, data);
+    res.end();
   });
   
 });
